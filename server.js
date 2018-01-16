@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * Copyright 2016 IBM Corp. All Rights Reserved.
  *
@@ -14,18 +15,12 @@
  * limitations under the License.
  */
 
-const express = require('express');
-const app = express();
+require('dotenv').config({silent: true});
 
-// Bootstrap application settings
-require('./config/express')(app);
+var server = require('./app');
+var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
-// Configure the Watson services
-require('./routes/conversation')(app);
-require('./routes/speech-to-text')(app);
-require('./routes/text-to-speech')(app);
-
-// error-handler settings
-require('./config/error-handler')(app);
-
-module.exports = app;
+server.listen(port, function() {
+  // eslint-disable-next-line
+  console.log('Server running on port: %d', port);
+});
