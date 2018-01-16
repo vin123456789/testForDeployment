@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-lg-6">
+        <section class="panel">
+            <header class="panel-heading">
+                Client logo
+            </header>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="exampleInputFile">Logo file</label>
+                        <input id="exampleInputFile" type="file" onchange="readImage(this, 'client_logo_preview',
+                        'client_logo_preview_msg')">
+                        <p class="help-block">Select logo image file, png, jpg and svg are better.</p>
+                    </div>
+                    <div class="checkbox">
+                        <img id="client_logo_preview"/>
+                        <p class="help-block" id="client_logo_preview_msg"></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-6">
+        <section class="panel">
+            <header class="panel-heading">
+                Client information
+            </header>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="client_name" class="col-lg-2 col-sm-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" id="client_name" placeholder="Client name" type="text">
+                            <p class="help-block">The name of Client.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="client_industry" class="col-lg-2 col-sm-2 control-label">Industry</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="client_industry" placeholder="Client name"></select>
+                            <p class="help-block">The Industry of Client.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

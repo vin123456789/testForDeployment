@@ -1,0 +1,29 @@
+<div layout = "row" layout-xs = "column" ng-repeat="teamLine in team track by $index">
+    <span ng-bind="indexMark=$index" style="display:none"></span>
+    <div flex ng-repeat="teamMember in teamLine track by $index">
+        <md-card style="height: 120px; width: 250px">
+            <md-card-header>
+                <md-card-avatar>
+                    <img class = "md-user-avatar" src = "/uploaded/{{ teamMember.icon }}">
+                </md-card-avatar>
+
+                <md-card-header-text>
+                    <span class = "md-title">{{ teamMember.name }}</span>
+                    <span class = "md-subhead">{{ teamMember.email }}</span>
+                </md-card-header-text>
+            </md-card-header>
+
+            <md-card-actions layout = "row" layout-align = "start center">
+                <md-card-icon-actions>
+                    <md-button class = "md-icon-button" aria-label = "icon" ng-click="gotoTeamMember(indexMark, $index)">
+                        <md-icon class = "material-icons" md-svg-src="/images/icons/edit-20.svg">Edit</md-icon>
+                    </md-button>
+                    <md-button class = "md-icon-button" aria-label = "icon" ng-click="deleteTeamMember(indexMark, $index)">
+                        <md-icon class = "material-icons" md-svg-src="/images/icons/delete-20.svg">Delete</md-icon>
+                    </md-button>
+                </md-card-icon-actions>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
+<md-button ng-click = "addTeamMember()">add</md-button>

@@ -1,0 +1,31 @@
+<header class="header" ng-controller="headerController as header" ng-init="getUser()">
+    <a href="index.html" class="logo">
+        <!-- Add the class icon to your logo image or logo icon to add the margining -->
+        <img src="images/logo.png"/>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-right" style="height: 100%; padding:15px 0 8px 15px">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li>
+                    <i class="fa fa-user"></i>
+                    <span>{{ user.firstName}} {{ user.lastName}}</span>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li>
+                    <a href="/logout" title="logout" style="margin:0px 20px 0px 20px;padding:0px 0px 0px 0px">
+                        <img src="images/icons/logout.png"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,39 @@
+<div class="modal fade" id="valueModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add a value</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="value_title">Title</label>
+                        <input required type="text" class="form-control" id="value_title" placeholder="Value title" ng-model = "value.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="value_image">Image</label>
+                        <input type="file" id="value_image" nv-file-select uploader="uploader"/><br/>
+                        <div ng-messages = "teamMemberForm.userEmail.$error" role = "alert">
+                            <div ng-message-exp = "['required', 'minlength', 'maxlength', 'pattern']">
+                                The Image site should be 1000X200, and not large than 5M.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="value_pdf">PDF</label>
+                        <input type="file" id="value_pdf" nv-file-select uploader="uploader2"/><br/>
+                        <div ng-messages = "teamMemberForm.userEmail.$error" role = "alert">
+                            <div ng-message-exp = "['required', 'minlength', 'maxlength', 'pattern']">
+                                The PDF should not large than 50M.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click = "saveValue()">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

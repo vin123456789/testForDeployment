@@ -1,0 +1,21 @@
+<form name = "homeForm">
+    <md-input-container class = "md-block">
+        <label>Welcome header</label>
+        <input required name = "welcome_header" ng-model = "data.welcome_header">
+        <div ng-messages = "homeForm.welcome_header.$error">
+            <div ng-message = "required">This is required.</div>
+        </div>
+    </md-input-container>
+    <md-input-container class = "md-block">
+        <label>Welcome message</label>
+        <input md-maxlength = "300" required name = "welcome_message"
+               ng-model = "data.welcome_content">
+        <div ng-messages = "homeForm.welcome_message.$error">
+            <div ng-message = "required">This is required.</div>
+            <div ng-message = "md-maxlength">The message has to be less
+                than 300 characters long.</div>
+        </div>
+    </md-input-container>
+
+    <md-button ng-click = "gotoTeam()">Next</md-button>
+</form>

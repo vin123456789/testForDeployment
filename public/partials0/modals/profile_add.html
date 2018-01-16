@@ -1,0 +1,47 @@
+<div class="modal fade" id="teamMemberModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add a profile</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="tm_name">Name</label>
+                        <input required type="text" class="form-control" id="tm_name" placeholder="Team member name" ng-model = "teamMember.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="tm_title">Title</label>
+                        <input required type="text" class="form-control" id="tm_title" placeholder="Team member title" ng-model = "teamMember.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="tm_email">Email</label>
+                        <input required type = "email" class="form-control" id = "tm_email"
+                               ng-model = "teamMember.email"
+                               minlength = "10" maxlength = "100" ng-pattern = "/^.+@.+\..+$/" />
+                        <div ng-messages = "teamMemberForm.teamMember_email.$error" role = "alert">
+                            <div ng-message-exp = "['required', 'minlength', 'maxlength', 'pattern']">
+                                Email must be between 10 and 100 characters long and should
+                                be a valid email address.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tm_icon">Icon</label>
+                        <input required type="file" id="tm_icon" nv-file-select uploader="uploader"/><br/>
+                        <div ng-messages = "teamMemberForm.userEmail.$error" role = "alert">
+                            <div ng-message-exp = "['required', 'minlength', 'maxlength', 'pattern']">
+                                Your email must be between 10 and 100 characters long and should
+                                be a valid email address.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

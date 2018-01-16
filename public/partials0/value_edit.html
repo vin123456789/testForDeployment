@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Values
+                <div style="float:right">
+                    <a href="" title="Add a value" ng-click="addValue()">
+                        <img src="images/icons/add.png"/>
+                    </a>
+                </div>
+            </header>
+            <div class="panel-body">
+                <div class="col-md-4 form-group" ng-repeat="value in data.values track by $index">
+                    <div class="card" style="box-shadow: #666 0px 0px 5px;">
+                        <div class="card-block">
+                            <div style=""><img src="uploaded/{{ value.image }}" alt="Card image cap" style="width:100%;"/></div>
+                        </div>
+                        <div class="card-block" style="margin-left: 10px;">
+                        <h5 class="card-title">{{ value.title }}</h5>
+                        <a href="uploaded/{{ value.pdf }}" target="_blank">Link to pdf</a>
+                        </div>
+                        <div class="card-block" style="margin-top:15px">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="moveup($index)">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="moveup($index)">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="movedown($index)">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="moveup($index)">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div ng-include="'partials0/modals/value_add.html'" include-replace></div>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="libs/angular-material/angular-material.css" rel="stylesheet" />
+  <script src="libs/angular/angular.js" type="text/javascript" ></script>
+  <script src="libs/angular-animate/angular-animate.js" type="text/javascript" ></script>
+  <script src="libs/angular-aria/angular-aria.js" type="text/javascript" ></script>
+  <script src="libs/angular-material/angular-material.js" type="text/javascript" ></script>
+  <script src="libs/angular-ui-router/release/angular-ui-router.js" type="text/javascript" ></script>
+  <script src="libs/angular-file-upload/angular-file-upload.js" type="text/javascript" ></script>
+
+  <script src="./src/users/Users.js"></script>
+  <script src="./src/users/UsersListController.js"></script>
+  <script src="./src/users/UsersDataservice.js"></script>
+  <script language = "javascript">
+      angular
+          .module('firstApplication', ['ngMaterial', 'ui.router', 'angularFileUpload'])
+          .controller('mainController', mainController)
+          .config(function($stateProvider, $urlRouterProvider) {
+
+              $urlRouterProvider.otherwise('/tab/dash');
+              $stateProvider
+                  .state('welcome', {
+                      url: "/welcome",
+                      templateUrl: "partials/welcome.html"
+                  })
+                  .state('team', {
+                      url: "/team",
+                      templateUrl: "partials/team.html"
+                  })
+                  .state('teamMember', {
+                      url: "/teamMember",
+                      templateUrl: "partials/team_member.html"
+                  })
+                  .state('result', {
+                      url: "/result",
+                      templateUrl: "partials/result.html"
+                  })
+              ;
+          });
+
+      function mainController ($scope, $mdSidenav, $location, FileUploader, $http, $log) {
+
+          var uploader = $scope.uploader = new FileUploader({
+              url: '/upload-single'
+          });
+
+          // Image filters
+          uploader.filters.push({
+              name: 'imageFilter',
+              fn: function(item /*{File|FileLikeObject}*/, options) {
+                  var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                  return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+              }
+          });
+
+          // CALLBACKS
+          uploader.onSuccessItem = function(fileItem, response, status, headers) {
+          };
+          uploader.onErrorItem = function(fileItem, response, status, headers) {
+          };
+          uploader.onCompleteItem = function(fileItem, response, status, headers) {
+              if(status == 200){
+                  $scope.teamMember.icon = response;
+              }
+          };
+          uploader.onCompleteAll = function() {
+          };
+
+          $scope.data = {
+               "welcome_header": 'Welcome',
+               "welcome_content": 'Welcome to this microsite',
+               "team_members": [{
+               "icon": '1.jpg',
+               "title": 'Account Partner',
+               "name": 'Juha Sipola',
+               "email": 'juha.sipola@fi.ibm.com'
+          },{
+              icon: '2.jpg',
+              title: 'European SAP HANA & Analytics Leader ',
+              name: 'Sanjay Das',
+              email: 'sanjay.das@uk.ibm.com'
+          },{
+              icon: '3.jpg',
+              title: 'Digital Service Line Leader',
+              name: 'Laura Sutinen',
+              email: 'lsutinen@fi.ibm.com'
+          },{
+              icon: '4.jpg',
+              title: 'Industry COE Leader (Oil & Gas)',
+              name: 'Seshasai Kandrakota',
+              email: 'seshasai.k@in.ibm.com '
+          },{
+              icon: '5.jpg',
+              title: 'Managing Consultant(BI & EPM)',
+              name: 'Shivaram Kashyap',
+              email: 'shivaram.kashyap@se.ibm.com '
+          },{
+              icon: '6.jpg',
+              title: 'Delivery Project Executive',
+              name: 'Eric Zenkner',
+              email: 'eric.zenkner@fi.ibm.com'
+          }]
+          };
+
+          $scope.team = null;
+
+          $scope.teamMember = {
+              icon: '',
+              title: '',
+              name: '',
+              email: ''
+          }
+
+          $scope.indexMark = 0 ;
+
+          $scope.openLeftMenu = function() {
+              $mdSidenav('left').toggle();
+          };
+
+          $scope.gotoWelcome = function() {
+              $location.url("/welcome");
+          };
+
+          $scope.gotoTeam = function() {
+              $scope.generateTeamShowData();
+              $location.url("/team");
+          };
+
+          $scope.generateTeamShowData = function() {
+              var data = [];
+              for (var i = 0; i < $scope.data.team_members.length; i++ ) {
+                  if (i % 3 == 0) data.push([]);
+                  data[data.length-1].push($scope.data.team_members[i]);
+              }
+              return $scope.team = data;
+          };
+
+          $scope.gotoTeamMember = function(index1, index2) {
+              $scope.teamMember = $scope.data.team_members[index1*3+index2];
+              $location.url("/teamMember");
+          };
+
+          $scope.addTeamMember = function() {
+              $scope.data.team_members.push({
+                  icon: '',
+                  title: '',
+                  name: '',
+                  email: ''
+              });
+              $scope.teamMember = $scope.data.team_members[$scope.data.team_members.length-1];
+              $location.url("/teamMember");
+          };
+
+          $scope.saveTeamMember = function() {
+              if(uploader.queue.length>0) {
+                  uploader.uploadItem(uploader.queue.length-1);
+              }
+              $scope.gotoTeam();
+          };
+
+          $scope.deleteTeamMember = function(index1, index2) {
+              $scope.data.team_members.splice((index1*3+index2), 1);
+              $scope.gotoTeam();
+          };
+
+          $scope.generate = function() {
+              $http({
+                  method:'post',
+                  url:'/generate',
+                  data:$scope.data,
+                  headers:{'Content-Type': 'application/json'}
+              }).success(function(req){
+                  $location.url("/result");
+                  console.log(req);
+              })
+
+          };
+
+      };
+  </script>
+</head>
+
+
+<body ng-app="firstApplication" layout="column">
+
+<div id = "mainContainer" ng-controller = "mainController as ctrl"
+     layout = "row" layout-align="center center" ng-cloak>
+  <md-sidenav md-component-id = "left" class = "md-sidenav-left">
+    <md-list>
+      <!-- List item #1 -->
+      <md-list-item>
+        <md-button ng-click="gotoWelcome()">
+          <md-icon md-svg-src="./assets/svg/avatar-1.svg" class="avatar"></md-icon>
+          Home
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button>
+          <md-icon md-svg-src="./assets/svg/avatar-4.svg" class="avatar"></md-icon>
+          Value for you
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+
+  <md-content class="md-padding" layout-xs="column">
+  <div layout-lg = "column">
+    <div flex = "33">
+      <md-button ng-click = "openLeftMenu()">Select Page</md-button>
+      <md-button ng-click = "generate()">Generate</md-button>
+    </div>
+    <div flex = "66"><div id="content" ui-view flex></div></div>
+  </div>
+  </md-content>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<form name = "teamMemberForm">
+    <md-input-container class = "md-block">
+        <label>Name</label>
+        <input required name = "teamMember_name" ng-model = "teamMember.name">
+        <div ng-messages = "teamMemberForm.teamMember_name.$error">
+            <div ng-message = "required">This is required.</div>
+        </div>
+    </md-input-container>
+    <md-input-container class = "md-block">
+        <label>Title</label>
+        <input md-maxlength = "50" required name = "teamMember_title"
+               ng-model = "teamMember.title">
+        <div ng-messages = "teamMemberForm.teamMember_title.$error">
+            <div ng-message = "required">This is required.</div>
+            <div ng-message = "md-maxlength">The message has to be less
+                than 50 characters long.</div>
+        </div>
+    </md-input-container>
+    <md-input-container class = "md-block">
+        <label>Email</label>
+        <input required type = "email" name = "teamMember_email"
+               ng-model = "teamMember.email"
+               minlength = "10" maxlength = "100" ng-pattern = "/^.+@.+\..+$/" />
+        <div ng-messages = "teamMemberForm.teamMember_email.$error" role = "alert">
+            <div ng-message-exp = "['required', 'minlength', 'maxlength',
+                        'pattern']">
+                Your email must be between 10 and 100 characters long and should
+                be a valid email address.
+            </div>
+        </div>
+    </md-input-container>
+    <md-input-container class = "md-block">
+        <input required type="file" nv-file-select uploader="uploader"/><br/>
+        <div ng-messages = "teamMemberForm.userEmail.$error" role = "alert">
+            <div ng-message-exp = "['required', 'minlength', 'maxlength',
+                        'pattern']">
+                Your email must be between 10 and 100 characters long and should
+                be a valid email address.
+            </div>
+        </div>
+    </md-input-container>
+
+    <md-button ng-click = "saveTeamMember()">Save</md-button>
+</form>
